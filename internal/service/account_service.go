@@ -26,7 +26,9 @@ func (s *AccountService) CreateAccount(input *dto.CreateAccount) (*dto.AccountOu
 		return nil, domain.ErrDuplicatedApiKey
 	}
 
-	err = s.accountRepository.Save(account)
+	newAccount := domain.NewAccount(account.Name, account.Email)
+
+	err = s.accountRepository.Save(newAccount)
 
 	if err != nil {
 		return nil, err
