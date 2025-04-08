@@ -67,7 +67,7 @@ func (r *AccountRepository) FindById(id string) (*domain.Account, error) {
 	return &account, nil
 }
 
-func (r *AccountRepository) Update(account *domain.Account) error {
+func (r *AccountRepository) UpdateBalance(account *domain.Account) error {
 	tx, err := r.db.Begin()
 
 	if err != nil {
