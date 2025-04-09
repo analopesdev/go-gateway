@@ -39,7 +39,7 @@ func (r *AccountRepository) FindByApiKey(apiKey string) (*domain.Account, error)
 	row := r.db.QueryRow("SELECT id, name, email, api_key, balance, created_at, updated_at FROM accounts WHERE api_key = $1", apiKey)
 	err := row.Scan(&account.ID, &account.Name, &account.Email, &account.ApiKey, &account.Balance, &account.CreatedAt, &account.UpdatedAt)
 
-	if err != sql.ErrNoRows {
+	if err == sql.ErrNoRows {
 		return nil, domain.ErrAccountNotFound
 	}
 
@@ -56,7 +56,7 @@ func (r *AccountRepository) FindById(id string) (*domain.Account, error) {
 	row := r.db.QueryRow("SELECT id, name, email, api_key, balance, created_at, updated_at FROM accounts WHERE id = $1", id)
 	err := row.Scan(&account.ID, &account.Name, &account.Email, &account.ApiKey, &account.Balance, &account.CreatedAt, &account.UpdatedAt)
 
-	if err != sql.ErrNoRows {
+	if err == sql.ErrNoRows {
 		return nil, domain.ErrAccountNotFound
 	}
 
@@ -81,7 +81,7 @@ func (r *AccountRepository) UpdateBalance(account *domain.Account) error {
 	// Lock the account for update to avoid race conditions
 	err = tx.QueryRow("SELECT balance FROM accounts WHERE id = $1 FOR UPDATE", account.ID).Scan(&currentBalance)
 
-	if err != sql.ErrNoRows {
+	if err == sql.ErrNoRows {
 		return domain.ErrAccountNotFound
 	}
 

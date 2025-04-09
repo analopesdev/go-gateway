@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/analopesdev/go-gateway/internal/dto"
@@ -17,6 +18,8 @@ func NewAccountHandler(accountService *service.AccountService) *AccountHandler {
 }
 
 func (h *AccountHandler) Create(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Creating account")
+
 	var input dto.CreateAccount
 
 	//hidrate the input
@@ -34,6 +37,7 @@ func (h *AccountHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("Account: ", account.ApiKey)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(account)

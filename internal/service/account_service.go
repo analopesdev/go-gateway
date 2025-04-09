@@ -34,7 +34,7 @@ func (s *AccountService) CreateAccount(input *dto.CreateAccount) (*dto.AccountOu
 		return nil, err
 	}
 
-	return dto.FromAccount(account), nil
+	return dto.FromAccount(newAccount), nil
 }
 
 func (s *AccountService) UpdateBalance(apiKey string, amount float64) (*dto.AccountOutput, error) {

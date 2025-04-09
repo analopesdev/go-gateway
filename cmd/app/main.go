@@ -10,6 +10,7 @@ import (
 	"github.com/analopesdev/go-gateway/internal/service"
 	"github.com/analopesdev/go-gateway/internal/web/server"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 func main() {

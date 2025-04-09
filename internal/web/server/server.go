@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/analopesdev/go-gateway/internal/service"
@@ -24,6 +25,8 @@ func NewServer(accountService *service.AccountService, port string) *Server {
 }
 
 func (s *Server) ConfigureRoutes() {
+
+	fmt.Println("Configuring routes")
 	accountHandler := handlers.NewAccountHandler(s.accountService)
 
 	s.router.Post("/accounts", accountHandler.Create)

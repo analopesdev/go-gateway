@@ -1,0 +1,8 @@
+# execute migrate
+migrate -database "postgres://postgres:postgres@localhost:5432/gateway?sslmode=disable" -path migrations up
+
+# down migrate
+migrate -database "postgres://postgres:postgres@localhost:5432/gateway?sslmode=disable" -path migrations down 1
+
+# access bank docker
+docker exec -it container_name psql -U postgres -d gateway  
